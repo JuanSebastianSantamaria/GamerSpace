@@ -1,0 +1,50 @@
+<body>
+  <div class="landingBackground">
+    <div class="header">
+      <h1 class="fw-bold display-3">GAMER SPACE</h1>
+      <p class="lead">Your Game, Your Space. We have it for you.</p>
+    </div>
+    <div class="sub-head">
+      <h1 class="fw-bold display-5">Join Us</h1>
+      <p class="lead">Enjoy our offers and products.</p>
+    </div>
+    <div class="form">
+      <form (ngSubmit)="login()">
+        <div class="row">
+          <h2>Login</h2>
+          <div class="form-container">
+            <input [(ngModel)]="userLogin.username" type="text" name="username" placeholder="Username" required>
+            <input [(ngModel)]="userLogin.password" type="password" name="password" placeholder="Password" required>
+            <div *ngIf="invalid == true && loginFlag == true" class="alert">
+              <span class="closebtn" (click)='closeAlert()' onclick="this.parentElement.style.display='none';">&times;</span>
+              <strong>Error!</strong> {{message}}
+            </div>
+            <input type="submit" class="login" value="Login">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="form">
+      <form (ngSubmit)="register()">
+        <div class="row">
+          <h2>Create an Account</h2>
+          <div class="form-container">
+            <input [(ngModel)]="newUser.fullname" type="text" maxlength="40" name="fullname" placeholder="Full Name"
+              required>
+            <input [(ngModel)]="newUser.username" type="text" maxlength="40" name="username" placeholder="Username"
+              required>
+            <input [(ngModel)]="newUser.password" type="password" maxlength="40" name="password" placeholder="Password"
+              required>
+            <input [(ngModel)]="newUser.email" type="email" maxlength="40" name="email" placeholder="Email" required>
+            <input [(ngModel)]="newUser.phoneNumber" type="tel" maxlength="10" name="phone" placeholder="Phone Number (Optional)">
+            <div *ngIf="invalid == true && loginFlag == false" class="alert">
+              <span class="closebtn" (click)='closeAlert()' onclick="this.parentElement.style.display='none';">&times;</span>
+              <strong>Error!</strong> {{message}}
+            </div>
+            <input type="submit" class="register" value="Create Account">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>

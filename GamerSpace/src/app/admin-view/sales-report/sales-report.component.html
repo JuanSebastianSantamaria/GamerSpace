@@ -1,0 +1,104 @@
+<body>
+  <app-navigation-bar></app-navigation-bar>
+  <div class="sub-head">
+    <h1 class="fw-bold display-5">Sales Report</h1>
+  </div>
+  <div class="container">
+    <div class="col-lg-12 col-sm-12">
+      <div class="card m-b-30">
+        <div class="card-header">
+          <h5 class="card-title mb-0"><strong>Statistics</strong></h5>
+        </div>
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-6 col-lg-3">
+              <div class="border-success border rounded text-center py-3 mb-3">
+                <h5 class="card-title text-success mb-1">$ {{statistics.earnings}} COP</h5>
+                <p class="text-success mb-0">Earnings</p>
+              </div>
+              <div class="border-info border rounded text-center py-3 mb-3">
+                <h5 class="card-title text-info mb-1">{{statistics.soldProducts}}</h5>
+                <p class="text-info mb-0">Sold Products</p>
+              </div>
+              <div class="border-primary border rounded text-center py-3">
+                <h5 class="card-title text-primary mb-1">{{statistics.productsStock}}</h5>
+                <p class="text-primary mb-0">Products Stock</p>
+              </div>
+            </div>
+            <div class="col-6 col-lg-9">
+              <p>Sold Products <span class="float-right">{{soldProductsPercent}}%</span></p>
+              <div class="progress mb-3" style="height: 5px;">
+                <div class="progress-bar bg-info" role="progressbar" [style]="'width: '+soldProductsPercent+'%;'" aria-valuenow="80"
+                  aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <p>Products Stock <span class="float-right">{{productsStockPercent}}%</span></p>
+              <div class="progress mb-3" style="height: 5px;">
+                <div class="progress-bar" role="progressbar" [style]="'width: '+productsStockPercent+'%;'" aria-valuenow="55" aria-valuemin="0"
+                  aria-valuemax="100"></div>
+              </div>
+              <p>User Satisfaction <span class="float-right">95%</span></p>
+              <div class="progress" style="height: 5px;">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 95%;" aria-valuenow="10"
+                  aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h4 class="card-title"><strong>Sales History</strong></h4>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-3">
+          <div ngbDropdown container="body">
+            <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>Order Purchases by</button>
+            <div ngbDropdownMenu>
+              <button (click)="changeFilter('date')" ngbDropdownItem>Date</button>
+              <button (click)="changeFilter('quantity')" ngbDropdownItem>Quantity</button>
+              <button (click)="changeFilter('total')" ngbDropdownItem>Total Paid</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="input-group">
+            <input [(ngModel)]="buyer" type="text" class="form-control" placeholder="Search By Buyer Name" maxlength="20">
+            <div class="input-group-append">
+              <button class="btn btn-outline-primary" (click)="search()" type="button">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <table class="table table-bordered border-primary">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Date</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Total Paid</th>
+          <th scope="col">Buyer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of purchases">
+          <th scope="row">{{data.purchaseId}}</th>
+          <td>{{data.date}}</td>
+          <td>{{data.quantity}}</td>
+          <td>{{data.total}}</td>
+          <td>{{data.customer.fullname}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center">
+        <li class="page-item">
+          <button class="page-link" (click)="changePage(-1, false)">Prev</button>
+        </li>
+        <li *ngFor="let i of totalPages" class="page-item" [class.active]="(page+1)==i"><button class="page-link" (click)="changePage(i, true)">{{i}}</button></li>
+        <li class="page-item">
+          <button class="page-link" (click)="changePage(1, false)">Next</button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</body>

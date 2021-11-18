@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a *ngIf="currentUserRol == 'admin'" class="navbar-brand" [routerLink]="['/admin/products']">
+      <img src="/assets/navImg.png">
+    </a>
+    <a *ngIf="currentUserRol == 'customer'" class="navbar-brand" [routerLink]="['/home']">
+      <img src="/assets/navImg.png">
+    </a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li *ngIf="currentUserRol == 'admin'" class="nav-item">
+          <a class="nav-link" (click)="changeState()" [class.active]="isProductsActive" [routerLink]="['/admin/products']">Products</a>
+        </li>
+        <li *ngIf="currentUserRol == 'customer'" class="nav-item">
+          <a class="nav-link" (click)="changeState()" [class.active]="isHomeActive" [routerLink]="['/home']">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="changeState()" [class.active]="isProfileActive" [routerLink]="['/profile', currentUserId]">Profile</a>
+        </li>
+        <li *ngIf="currentUserRol == 'admin'" class="nav-item">
+          <a class="nav-link" (click)="changeState()" [class.active]="isSalesActive" [routerLink]="['/admin/reports']" >Sales</a>
+        </li>
+        <li *ngIf="currentUserRol == 'customer'" class="nav-item">
+          <a class="nav-link" (click)="changeState()" [class.active]="isPurchasesActive" [routerLink]="['/purchases']" >Purchases</a>
+        </li>
+        <li *ngIf="currentUserRol == 'customer'" class="nav-item">
+          <a class="nav-link" (click)="changeState()" [class.active]="isCarActive" [routerLink]="['/car']" >My Cart</a>
+        </li>
+      </ul>
+    </div>
+    <div class="nav-item d-flex">
+      <a class="nav-link">
+        <img (click)="logout()" src="/assets/Logout.png">
+      </a>
+    </div>
+  </div>
+</nav>
+<div class="header headerImg">
+  <h1 class="fw-bold display-3">GAMER SPACE</h1>
+  <p class="lead">Your Game, Your Space. We have it for you.</p>
+</div>

@@ -1,0 +1,57 @@
+<body>
+  <app-navigation-bar></app-navigation-bar>
+  <div class="sub-head">
+    <h1 class="fw-bold display-5">Purchases Cart</h1>
+  </div>
+  <div *ngIf="products.length > 0" class="d-grid gap-2 col-2 mx-auto">
+    <a class="btn btn-primary" (click)="open(successModal)">Complete Purchase and Pay</a>
+  </div>
+  <div class="row">
+    <div *ngFor="let product of products; let i = index" class="column">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" [src]="product.photoPath" alt="Product image">
+        <div class="card-body">
+          <h5 class="card-title">{{product.title}}</h5>
+          <p class="card-text" *ngIf="product.description.length > 26; else defaultDescription">
+            {{product.description.substring(0,26)}} ...</p>
+          <ng-template class="card-text" #defaultDescription>
+            <p>{{product.description}}</p>
+          </ng-template>
+          <h5 class="card-title">$ {{product.total}} COP</h5>
+          <p class="card-text">Quantity selected: {{product.quantity}}</p>
+          <button type="button" (click)="deleteFromCart(product.productId)" class="btn btn-primary">Remove From
+            Cart</button>
+          <a type="button" [routerLink]="['/products/view', product.originalId]" class="btn btn-primary">View
+            Product</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav *ngIf="products.length > 0" aria-label="Page navigation" style="padding-top: 3%;">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <button class="page-link" (click)="changePage(-1, false)">Prev</button>
+      </li>
+      <li *ngFor="let i of totalPages" class="page-item" [class.active]="(page+1)==i"><button class="page-link" (click)="changePage(i, true)">{{i}}</button></li>
+      <li class="page-item">
+        <button class="page-link" (click)="changePage(1, false)">Next</button>
+      </li>
+    </ul>
+  </nav>
+  <!-- Modal to show success -->
+  <ng-template #successModal let-c="close" let-d="dismiss">
+    <!-- Modal -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Payment was successful</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        <p>Thank you for your purchase.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="d('Cross click')">Close</button>
+      </div>
+    </div>
+  </ng-template>
+</body>

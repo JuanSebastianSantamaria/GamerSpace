@@ -1,0 +1,78 @@
+<body>
+  <app-navigation-bar></app-navigation-bar>
+  <div class="sub-head">
+    <h1 class="fw-bold display-5">Your Purchases</h1>
+  </div>
+  <div class="row">
+    <div *ngFor="let purchase of purchases" class="column">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="https://i.imgur.com/cClVqRB.jpg" alt="Purchase image">
+        <div class="card-body">
+          <h5 class="card-title">Purchase #{{purchase.purchaseId}}</h5>
+          <p class="card-text">Purchase Date: {{purchase.date}}</p>
+          <p class="card-text">Total Paid: $ {{purchase.total}} COP</p>
+          <p class="card-text">Quantity: {{purchase.quantity}}</p>
+          <a type="button" (click)="open(purchaseDetailsModal, purchase.purchaseId)" class="btn btn-primary">Purchase Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav *ngIf="purchases.length > 0" aria-label="Page navigation" style="padding-top: 3%;">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <button class="page-link" (click)="changePage(-1, false)">Prev</button>
+      </li>
+      <li *ngFor="let i of totalPages" class="page-item" [class.active]="(page+1)==i"><button class="page-link" (click)="changePage(i, true)">{{i}}</button></li>
+      <li class="page-item">
+        <button class="page-link" (click)="changePage(1, false)">Next</button>
+      </li>
+    </ul>
+  </nav>
+  <!-- Modal to show purchase details -->
+  <ng-template #purchaseDetailsModal let-c="close" let-d="dismiss">
+    <!-- Modal -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Purchase Details</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        <p>Purchase Date: {{modalPurchase.date}}</p>
+        <p>Quantity: {{modalPurchase.quantity}}</p>
+        <p>Total Paid: $ {{modalPurchase.total}} COP</p>
+        <div class="row">
+          <div *ngFor="let product of productsPurchased" class="modal-column" style="margin: 3%;">
+            <div class="card" style="width: 18rem;">
+              <img class="card-img-top" [src]="product.photoPath" alt="Product image">
+              <div class="card-body">
+                <h5 class="card-title">{{product.title}}</h5>
+                <p class="card-text" *ngIf="product.description.length > 26; else defaultDescription">
+                  {{product.description.substring(0,26)}} ...</p>
+                <ng-template class="card-text" #defaultDescription>
+                  <p>{{product.description}}</p>
+                </ng-template>
+                <h5 class="card-title">Total Paid: $ {{product.total}} COP</h5>
+                <p class="card-text">Quantity: {{product.quantity}}</p>
+                <a type="button" [routerLink]="['/products/view', product.originalId]" (click)="d('Cross click')" class="btn btn-primary">View Product</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav aria-label="Page Modal navigation" style="padding-top: 3%;">
+          <ul class="pagination justify-content-center">
+            <li class="page-item">
+              <button class="page-link" (click)="changePageModal(-1, false)">Prev</button>
+            </li>
+            <li *ngFor="let j of totalPagesProducts" class="page-item" [class.active]="(pageProducts+1)==j"><button class="page-link" (click)="changePageModal(j, true)">{{j}}</button></li>
+            <li class="page-item">
+              <button class="page-link" (click)="changePageModal(1, false)">Next</button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-modal" (click)="d('Cross click')">Close</button>
+      </div>
+    </div>
+  </ng-template>
+</body>

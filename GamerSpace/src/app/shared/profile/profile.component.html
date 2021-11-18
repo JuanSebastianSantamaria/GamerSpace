@@ -1,0 +1,42 @@
+<body>
+  <app-navigation-bar></app-navigation-bar>
+  <div class="sub-head">
+    <h1 class="fw-bold display-5">My Profile</h1>
+  </div>
+  <div class="container">
+    <div class="row align-items-start">
+      <div class="col">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <h5 class="mb-1 text-center">My Information</h5>
+          </li>
+          <li class="list-group-item">Fullname: {{user.fullname}}</li>
+          <li class="list-group-item">Username: {{user.username}}</li>
+          <li class="list-group-item">Email: {{user.email}}</li>
+          <li class="list-group-item">Phone Number: {{user.phoneNumber}}</li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="form">
+          <form (ngSubmit)="updateProfile()">
+            <div class="row">
+              <div class="form-container">
+                <input [(ngModel)]="user.fullname" type="text" maxlength="40" name="fullname" placeholder="Full Name"
+                  required>
+                <input [(ngModel)]="user.email" type="email" maxlength="40" name="email" placeholder="Email" required>
+                <input [(ngModel)]="user.phoneNumber" type="tel" maxlength="10" name="phone"
+                  placeholder="Phone Number (Optional)">
+                <div *ngIf="invalid == true" class="alert">
+                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                  <strong>Error!</strong> First 4 fields are required.
+                </div>
+                <input type="submit" class="update" value="Save Changes">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>

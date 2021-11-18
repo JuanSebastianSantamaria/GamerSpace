@@ -1,0 +1,44 @@
+<body>
+  <app-navigation-bar></app-navigation-bar>
+  <div class="sub-head">
+    <h1 class="fw-bold display-5">{{product.title}}</h1>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <img class="card-img-top" [src]="product.photoPath" alt="Product image">
+    </div>
+    <div class="col-sm-8">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <h5 class="mb-1 text-center">Product Details</h5>
+        </li>
+        <li class="list-group-item">Description: {{product.description}}</li>
+        <li class="list-group-item">Price: $ {{product.price}} COP</li>
+        <li class="list-group-item">Stock: {{product.stock}} Available</li>
+      </ul>
+      <div *ngIf="currentUserRol == 'customer'" class="d-grid gap-2 col-6 mx-auto">
+        <button type="button" (click)="open(purchasesModal)" class="btn btn-primary">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+  <!-- Modal to confirm a purchase -->
+  <ng-template #purchasesModal let-c="close" let-d="dismiss">
+    <!-- Modal -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm your product</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        <p>Please confirm your product and select the quantity.</p>
+        <p>Quantity Selected: {{quantity}}</p>
+        <p>Total Price: $ {{productToAdd.price*quantity}} COP</p>
+        <input *ngIf="productToAdd.stock > 0" type="range" class="form-range" min="1" [max]="productToAdd.stock" [(ngModel)]="quantity">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-modal" (click)="addToCart()">Confirm</button>
+        <button type="button" class="btn btn-danger btn-modal" (click)="d('Cross click')">Cancel</button>
+      </div>
+    </div>
+  </ng-template>
+</body>

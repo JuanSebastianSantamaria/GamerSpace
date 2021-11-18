@@ -1,0 +1,22 @@
+<body>
+  <app-navigation-bar></app-navigation-bar>
+  <div class="form">
+    <form (ngSubmit)="createProduct()">
+      <div class="row">
+        <h2>Add a New Product</h2>
+        <div class="form-container">
+          <input [(ngModel)]="product.title" type="text" maxlength="20" name="title" placeholder="Title" required>
+          <textarea [(ngModel)]="product.description" name="description" maxlength="140" cols="36" rows="3" placeholder="Description"></textarea>
+          <input [(ngModel)]="product.price" type="number" maxlength="10" name="price" placeholder="Price" required>
+          <input [(ngModel)]="product.stock" type="number" maxlength="4" name="stock" placeholder="Stock" required>
+          <input [(ngModel)]="product.photoPath" type="url" maxlength="200" name="photo" placeholder="Photo URL" required>
+          <div *ngIf="invalid == true" class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Error!</strong> All fields are required.
+          </div>
+          <input type="submit" class="addProduct" value="Add Product">
+        </div>
+      </div>
+    </form>
+  </div>
+</body>

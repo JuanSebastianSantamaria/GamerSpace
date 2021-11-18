@@ -1,0 +1,37 @@
+<body>
+  <app-navigation-bar></app-navigation-bar>
+  <div class="sub-head">
+    <h1 class="fw-bold display-5">Stock</h1>
+  </div>
+  <div class="d-grid gap-2 col-2 mx-auto">
+    <a class="btn btn-primary" [routerLink]="['/admin/products/new']">Add New Product</a>
+  </div>
+  <div class="row">
+    <div *ngFor="let product of products" class="column">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" [src]="product.photoPath" alt="Product image">
+        <div class="card-body">
+          <h5 class="card-title">{{product.title}}</h5>
+          <p class="card-text" *ngIf="product.description.length > 26; else defaultDescription">{{product.description.substring(0,26)}} ...</p>
+          <ng-template class="card-text" #defaultDescription> <p>{{product.description}}</p> </ng-template>
+          <h5 class="card-title">$ {{product.price}} COP</h5>
+          <p class="card-text">Stock: {{product.stock}}</p>
+          <a type="button" [routerLink]="['/admin/products/edit', product.productId]" class="btn btn-info">Edit</a>
+          <button type="button" (click)="deleteProduct(product.productId)" class="btn btn-danger">Delete</button>
+          <a type="button" [routerLink]="['/products/view', product.productId]" class="btn btn-secondary">View Product</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav aria-label="Page navigation" style="padding-top: 3%;">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <button class="page-link" (click)="changePage(-1, false)">Prev</button>
+      </li>
+      <li *ngFor="let i of totalPages" class="page-item" [class.active]="(page+1)==i"><button class="page-link" (click)="changePage(i, true)">{{i}}</button></li>
+      <li class="page-item">
+        <button class="page-link" (click)="changePage(1, false)">Next</button>
+      </li>
+    </ul>
+  </nav>
+</body>

@@ -1,0 +1,15 @@
+.header {
+  padding: 15px;
+  text-align: center;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #4400ff, 0 0 20px #4400ff, 0 0 25px #4400ff, 0 0 30px #4400ff, 0 0 35px #4400ff;
+}
+
+.headerImg {
+  background-image: url("/assets/Images/HeaderImg.jpg");
+  min-height: 180px;
+  background-position: center;
+  background-repeat: repeat;
+  position: relative;
+}
